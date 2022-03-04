@@ -19,8 +19,7 @@ export const findEmptyValue = (obj: any) => {
 };
 
 export const pySegSort = (arr: any[]) => {
-
-  if (arr.length == 0) return;
+  if (arr.length === 0) return;
   if (!String.prototype.localeCompare) return null;
   var letters = "#ABCDEFGHJKLMNOPQRSTWXYZ".split("");
   var zh = "阿八嚓哒妸发旮哈讥咔垃痳拏噢妑七呥扨它穵夕丫帀".split("");
@@ -201,7 +200,7 @@ export const getVideoInfo = (file: RcFile): Promise<number> => {
   });
 };
 
-export const base64toFile = (base64Str:string) => {
+export const base64toFile = (base64Str: string) => {
   var arr = base64Str.split(","),
     fileType = arr[0].match(/:(.*?);/)![1],
     bstr = atob(arr[1]),
@@ -232,7 +231,7 @@ export const contenteditableDivRange = () => {
   document.execCommand("delete");
 };
 
-export const move2end = (ref:React.RefObject<HTMLDivElement>) => {
+export const move2end = (ref: React.RefObject<HTMLDivElement>) => {
   const sel = window.getSelection();
   const range = document.createRange();
   range.selectNodeContents(ref.current!);
@@ -241,24 +240,27 @@ export const move2end = (ref:React.RefObject<HTMLDivElement>) => {
   sel?.addRange(range);
 };
 
-export const downloadFileUtil = (filePath: string, filename:string) =>{
-  axios.get(filePath, {
+export const downloadFileUtil = (filePath: string, filename: string) => {
+  axios
+    .get(filePath, {
       headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      'responseType': 'blob'
-  }).then(function (response) {
+      responseType: "blob",
+    })
+    .then(function (response) {
       const blob = new Blob([response.data]);
       const fileName = filename;
-      const linkNode = document.createElement('a');
+      const linkNode = document.createElement("a");
       linkNode.download = fileName;
-      linkNode.style.display = 'none';
+      linkNode.style.display = "none";
       linkNode.href = URL.createObjectURL(blob);
       document.body.appendChild(linkNode);
       linkNode.click();
       URL.revokeObjectURL(linkNode.href);
       document.body.removeChild(linkNode);
-  }).catch(function (error) {
+    })
+    .catch(function (error) {
       console.log(error);
-  });
-}
+    });
+};
